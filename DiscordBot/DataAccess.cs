@@ -37,5 +37,9 @@ namespace DiscordBot
             }
         }
 
+        internal object Select<T1, T2>(object wEEKDAY, object p, string cONNECTION_STRING_IATU)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
