@@ -1,4 +1,6 @@
-﻿using DSharpPlus;
+﻿using DiscordBotTutorial.Bots.Handlers.Dialogue;
+using DiscordBotTutorial.Bots.Handlers.Dialogue.Steps;
+using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
@@ -158,7 +160,7 @@ namespace DiscordBot.Commands
 
                     for (int i = 0; i < sched.Count; i++) //int i = 0; i < sched.Count; i++
                     {
-                        var eeembend = new DiscordEmbedBuilder() 
+                        var eeembend = new DiscordEmbedBuilder()
                         {
                             Title = sched[i][0].dayName,
                             Color = DiscordColor.NotQuiteBlack,
@@ -174,7 +176,7 @@ namespace DiscordBot.Commands
 
                             if (j < sched[i].Count - 1)
                             {
-                                if(sched[i].Count == 0)
+                                if (sched[i].Count == 0)
                                 {
                                     continue;
                                 }
@@ -207,7 +209,7 @@ namespace DiscordBot.Commands
                             else if (sched[i][j].subgroup != "0")
                             {
                                 eeembend.AddField(sched[i][j].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " | " + sched[i][j].subgroup + " \n " + sched[i][j].type + " - " + sched[i][j].teacher + " - " + sched[i][j].cabinet, true);
-                                
+
                                 ++j;
                                 ++countLesson;
                             }
@@ -225,5 +227,34 @@ namespace DiscordBot.Commands
                 await Task.Delay(60000);
             }
         }
+
+
+
+        [Command("addTask")]
+        [RequireRoles(RoleCheckMode.Any, "Teacher", "Owner")]
+        public async Task Dialogue(CommandContext ctx)
+        {
+            var inputStep = new TextStep("Enter something interesting!", null, 10);
+
+            string input = string.Empty;
+
+            inputStep.OnValidResult += (result) => input = result;
+
+            var userChannel = await ctx.Member.CreateDmChannelAsync().ConfigureAwait(false);
+
+            var inputDialogueHandler = new DialogueHandler(
+                ctx.Client,
+                userChannel,
+                ctx.User,
+                inputStep
+            );
+
+            bool succeeded = await inputDialogueHandler.ProcessDialogue().ConfigureAwait(false);
+
+            if (!succeeded) { return; }
+
+            await ctx.Channel.SendMessageAsync(input).ConfigureAwait(false);
+
+        }
     }
-}   
+}
