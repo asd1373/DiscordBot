@@ -168,7 +168,7 @@ namespace DiscordBot.Commands
                             //else eeembend.Color = DiscordColor.Azure;
                         };
 
-                        int countLesson = 1;
+                        int countLesson = 0;
 
                         for (int j = 0; j < sched[i].Count; j++)
                         {
@@ -176,10 +176,7 @@ namespace DiscordBot.Commands
 
                             if (j < sched[i].Count - 1)
                             {
-                                if (sched[i].Count == 0)
-                                {
-                                    continue;
-                                }
+  
                                 //if(j == sched[i].Count - 1)
                                 //{
                                 //    eeembend.AddField(sched[i][j].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " |  " + sched[i][j].subgroup + " \n " + sched[i][j].type + " - " + sched[i][j].teacher + " - " + sched[i][j].cabinet, true);
@@ -219,6 +216,10 @@ namespace DiscordBot.Commands
                                 ++countLesson;
                             }
                             //await ctx.Channel.SendMessageAsync(embed: eeembend).ConfigureAwait(false);
+                            if (countLesson == 0)
+                            {
+                                continue;
+                            }
                         }
                         await ctx.Channel.SendMessageAsync(embed: eeembend).ConfigureAwait(false);
 
