@@ -28,6 +28,8 @@ namespace DiscordBot
                 return rows;
             }
         }
+    
+        
 
         public void Insert<T>(string sql, T param, string connectionString)
         {

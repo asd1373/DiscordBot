@@ -27,7 +27,6 @@ namespace DiscordBot.Commands
 
 
         [Command("Check")]
-        [Description("Checking if bot is actually do smth")]
         public async Task WorkCheck(CommandContext ctx)
         {
             await ctx.Channel.SendMessageAsync("I am alive").ConfigureAwait(false);
@@ -132,7 +131,7 @@ namespace DiscordBot.Commands
         }
 
 
-        [Command("Sched")]
+        [Command("sched")]
 
         public async Task StartSched(CommandContext ctx)
         {
@@ -141,7 +140,7 @@ namespace DiscordBot.Commands
                 List<List<Schedule>> sched = new List<List<Schedule>>();
                 var day_now = new DataAccess().Select<int, dynamic>(SqlSchedule.WEEKDAY, new { }, DataAccess.CONNECTION_STRING_IATU)[0];
 
-                if (day_now > day_last)
+                if (day_now >= day_last)
                 {
 
                     var buf_day = day_now;
@@ -154,7 +153,6 @@ namespace DiscordBot.Commands
                     {
                         var day_sched = new DataAccess().Select<Schedule, dynamic>(new SqlSchedule().sql_SelectScheduleDay, new { sql_group = "АИСТбд-21", sql_date = i }, DataAccess.CONNECTION_STRING_IATU);
                         sched.Add(day_sched);
-
                     }
 
 
@@ -176,14 +174,7 @@ namespace DiscordBot.Commands
 
                             if (j < sched[i].Count - 1)
                             {
-  
-                                //if(j == sched[i].Count - 1)
-                                //{
-                                //    eeembend.AddField(sched[i][j].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " |  " + sched[i][j].subgroup + " \n " + sched[i][j].type + " - " + sched[i][j].teacher + " - " + sched[i][j].cabinet, true);
-                                //    eeembend.AddField(sched[i][j + 1].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " |  " + sched[i][j + 1].subgroup + " \n " + sched[i][j + 1].type + " - " + sched[i][j + 1].teacher + " - " + sched[i][j + 1].cabinet, true);
-                                //    ++j;
-                                //    ++countLesson;
-                                //}
+
                                 if (sched[i][j].timeStart == sched[i][j + 1].timeStart)
                                 {
                                     eeembend.AddField(sched[i][j].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " |  " + sched[i][j].subgroup + " \n " + sched[i][j].type + " - " + sched[i][j].teacher + " - " + sched[i][j].cabinet, true);
@@ -215,11 +206,8 @@ namespace DiscordBot.Commands
                                 eeembend.AddField(sched[i][j].discipline, sched[i][j].timeStart + " - " + sched[i][j].timeStop + " | " + sched[i][j].subgroup + " - " + sched[i][j].type + " - " + sched[i][j].teacher + " - " + sched[i][j].cabinet, false);
                                 ++countLesson;
                             }
-                            //await ctx.Channel.SendMessageAsync(embed: eeembend).ConfigureAwait(false);
-                            if (countLesson == 0)
-                            {
-                                continue;
-                            }
+                           //await ctx.Channel.SendMessageAsync(embed: eeembend).ConfigureAwait(false);
+                         
                         }
                         await ctx.Channel.SendMessageAsync(embed: eeembend).ConfigureAwait(false);
 

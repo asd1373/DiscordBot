@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{1B513898-6C5B-44B0-A6E1-C426C628149F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{1B513898-6C5B-44B0-A6E1-C426C628149F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testiki", "testiki\testiki.csproj", "{99B4E8A0-7A91-45B6-9480-A37CE89709D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B513898-6C5B-44B0-A6E1-C426C628149F} = {1B513898-6C5B-44B0-A6E1-C426C628149F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{1B513898-6C5B-44B0-A6E1-C426C628149F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B513898-6C5B-44B0-A6E1-C426C628149F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B513898-6C5B-44B0-A6E1-C426C628149F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B4E8A0-7A91-45B6-9480-A37CE89709D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B4E8A0-7A91-45B6-9480-A37CE89709D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B4E8A0-7A91-45B6-9480-A37CE89709D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B4E8A0-7A91-45B6-9480-A37CE89709D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
